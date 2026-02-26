@@ -6,6 +6,7 @@ from service import(
     update_client_status,
     create_client,
     add_interaction,
+    view_records
 )
 
 def main():
@@ -62,9 +63,23 @@ def main():
                 print(f"Error : {e}")
                 
         elif choice=="4":
-            pass
+            
+            status=input("Enter the Status: ")
+
+            try :
+                records = view_records(status)
+                for view in records:
+                    print(f"{view[0]}. {view[1]} |  {view[2]} | {view[3]} | {view[4]} | {view[5]}")
+            except ValueError as e :
+                print(f"Error : {e}")
+            except Exception as e:
+                print(f"Error : {e}")
+
         elif choice=="5":
             print("Goodbye!")
             break
         else :
             print("Choose from Menu only")
+
+if __name__ =="__main__":
+    main()

@@ -4,7 +4,8 @@ from database import(
     add_client,
     get_client_by_id,
     interaction,
-    update_client
+    update_client,
+    view_record_by_status
 )
 
 def create_client(name,phone,email):
@@ -75,3 +76,19 @@ def update_client_status(client_id,new_status):
         "client_id" : client_id,
         "update_status": update_status
     }
+
+def view_records(status):
+
+    valid_interaction={"call","email","meeting"}
+
+    status=status.strip().lower()
+
+    if status not in valid_interaction:
+        raise ValueError("Invalid Status type")
+
+    try :
+        records= view_record_by_status(status)
+    except sqlite3.IntegrityError:
+        raise ValueError("Check Status Failed")
+
+    return records
